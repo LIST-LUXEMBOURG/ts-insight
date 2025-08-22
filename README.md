@@ -1,22 +1,24 @@
 # TS-Insight: Visual Fingerprinting of Multi-Armed Bandits
-
 A Visual-Analytics dashboard for visually decoding Thompson Sampling for algorithm understanding, verification, and XAI.
 
-© 2025 Luxembourg Institute of Science and Technology. All Rights Reserved
-
+[![Poster](https://img.shields.io/badge/Poster-IEEE%20VIS%202025-6f42c1.svg)](ts-insight_vis2025_poster.pdf)
 [![arXiv](https://img.shields.io/badge/arXiv-2507.19898-b31b1b.svg)](https://arxiv.org/abs/2507.19898)
+[![Demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ts-insight.streamlit.app/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Python Version](https://img.shields.io/badge/python-3.11.9-blue)
 
 **TS-Insight** is an open-source web application designed to demystify Thompson Sampling (TS) and its variants, by offering visual representations of the resulting logs. It includes:
-
-- **Juxtaposed Multi-View Dashboard**: Simultaneously visualize the evolution of posterior beliefs (via HDR plots), raw evidence counts (`α`/`β`), and a "barcode" timeline of actions and rewards for each arm.
-- **Direct Algorithm Verification**: Visually confirm that belief updates are correct and observe the "forgetting" effect of the discount factor (`γ`) in DTS.
-- **Interactive XAI Snapshot**: Go beyond time-series analysis with a dedicated view that provides an unambiguous, at-a-glance explanation for why a specific arm was chosen at any single time step.
-- **General-Purpose Tool**: Decoupled from any specific algorithm implementation. TS-Insight works with any TS/DTS and all TS variation system that can produce logs in a standardized `.pt` file format.
+-   **Juxtaposed Multi-View Dashboard**: Simultaneously visualize the evolution of posterior beliefs (via HDR plots), raw evidence counts (`α`/`β`), and a "barcode" timeline of actions and rewards for each arm.
+-   **Direct Algorithm Verification**: Visually confirm that belief updates are correct and observe the "forgetting" effect of the discount factor (`γ`) in DTS.
+-   **Interactive XAI Snapshot**: Go beyond time-series analysis with a dedicated view that provides an unambiguous, at-a-glance explanation for why a specific arm was chosen at any single time step.
+-   **General-Purpose Tool**: Decoupled from any specific algorithm implementation. TS-Insight works with any TS/DTS and all TS variation system that can produce logs in a standardized `.pt` file format.
 
 This repository is the official companion to the poster _"TS-Insight: Visual Fingerprinting of Multi-Armed Bandits"_ @IEEE Vis 2025.
 
+## Poster (IEEE VIS 2025)
+<img width="3179" height="4494" alt="poster-IeeeVis" src="https://github.com/user-attachments/assets/89afe6bc-a383-47be-a33b-8208d0cd5998" />
+
+## Gallery
 ![Annotated excerpt of the TS-Insight Dashboard. Two arms are shown. Arm 8 has initially a higher posterior mean, which results in a lot of sampling by this arm. This focus shifts at the sampling step t=228, where arm 7 sampled, and had a positive outcome. Readers can see the samples starting to be made by Arm 7 instead of 8 from that point onwards.](./figures/TS-Insight_TwoArms_InkScape.png?raw=true)
 
 # Quickstart:
@@ -24,13 +26,15 @@ This repository is the official companion to the poster _"TS-Insight: Visual Fin
 Try our live webapp demo! All you have to do is:
 
 1. Launch our demo 👉 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ts-insight.streamlit.app/) 👈
-2. Upload one of the `.pt` log files [from our datasets](./datasets) in the side bar on the left
-3. (Optional) Upload the corresponding `.json` config file to display the correct dataset name and other metadata
-4. Press `Load Data`
+2. Upload one of the ```.pt``` log files [from our datasets](./datasets) in the side bar on the left
+3. (Optional) Upload the corresponding ```.json``` config file to display the correct dataset name and other metadata
+4. Press ```Load Data```
 5. Adjust the plots parameters (arms, subplots, sampling steps to display...)
-6. Press `Run Visualization`
+6. Press ```Run Visualization```
 7. Wait a bit... (It currently can take up to 1 minute to display)
 8. And voilà!
+
+
 
 # How to Use the Tool (A Step-by-Step Guide)
 
@@ -49,10 +53,10 @@ We have included sample log files from a real-world active learning experiment t
 
 1.  The main "Visualization" tab is now active. You can see the evolution plots for all algorithm arms.
 2.  In the sidebar under **"2. Plot Controls"**, try the following:
-    - **Select Arms to Visualize**: Use the multiselect dropdown to hide or show specific arms.
-    - **Select T Range**: Drag the slider to zoom into a specific period of the experiment. For example, zoom into the first 10 steps (`0-10`) to see the initial "cold start" behavior.
-    - **Plot Component Visibility**: Uncheck "Show Alpha/Beta Lines" or "Show Barcode Plot" to see how the views dynamically resize to give more space to the visible components.
-    - **Mask Arm Names**: Check this box to anonymize the arm names, replacing them with "Arm 1", "Arm 2", etc.
+    *   **Select Arms to Visualize**: Use the multiselect dropdown to hide or show specific arms.
+    *   **Select T Range**: Drag the slider to zoom into a specific period of the experiment. For example, zoom into the first 10 steps (`0-10`) to see the initial "cold start" behavior.
+    *   **Plot Component Visibility**: Uncheck "Show Alpha/Beta Lines" or "Show Barcode Plot" to see how the views dynamically resize to give more space to the visible components.
+    *   **Mask Arm Names**: Check this box to anonymize the arm names, replacing them with "Arm 1", "Arm 2", etc.
 3.  Click the **"Run Visualization"** button to apply your changes.
 
 #### Step 3: Use the XAI Snapshot for Explanation
@@ -62,8 +66,11 @@ This is the core explanatory feature of the tool.
 1.  Click on the **"XAI"** tab at the top of the main area.
 2.  By default, the view shows the state of the world at the first available sampling step.
 3.  Use the **"Select Sampling Step (t)"** dropdown to choose a specific moment to analyze. For a great example of exploration, select **`t = 228`**.
-    - You will see a bar chart comparing all arms. Notice how "Arm 8" has the highest bar (posterior mean), but the black dot (posterior sample) for "Arm 7" is highest. This is the visual proof of _why_ Arm 7 was chosen which initiated a shift in preference from Arm 8 to Arm 7.
+    *   You will see a bar chart comparing all arms. Notice how "Arm 8" has the highest bar (posterior mean), but the black dot (posterior sample) for "Arm 7" is highest. This is the visual proof of *why* Arm 7 was chosen which initiated a shift in preference from Arm 8 to Arm 7.
 4.  Toggle the **"Show only arms selected in sidebar"** checkbox. Notice how the default behavior (unchecked) shows all arms for a complete explanation, but you can check it to focus only on the arms you've selected.
+
+
+
 
 # Compatible Files
 
@@ -84,7 +91,7 @@ log_entry_t = {
     'query_num_total': 150,      # Integer: The current sampling step / time t.
     'arm': 'UncertaintySampling', # String: The name of the arm that was chosen (pulled).
     'reward': 1.0,               # Float: The reward received (e.g., 1.0 for success, 0.0 for failure).
-
+    
     'arm_states': {
         # --- Arm States Dictionary (Required) ---
         # This dictionary must contain an entry for EVERY arm in the system at this time step.
@@ -105,16 +112,16 @@ log_entry_t = {
 
 **Key Requirements:**
 
-- The file must be saved using `torch.save()`.
-- The top-level object must be a dictionary.
-- This dictionary must have the key `'detailed_log'`.
-- `'detailed_log'` must be a list of dictionaries as described above.
-- `arm_states` must be present and contain the state for _all_ arms at each time step to enable comparative analysis in the XAI view.
+-   The file must be saved using `torch.save()`.
+-   The top-level object must be a dictionary.
+-   This dictionary must have the key `'detailed_log'`.
+-   `'detailed_log'` must be a list of dictionaries as described above.
+-   `arm_states` must be present and contain the state for *all* arms at each time step to enable comparative analysis in the XAI view.
 
 ## Configuration File: `config.json` (Optional)
 
 You can optionally provide a JSON file with metadata to display in the application. This helps in identifying and organizing different runs.
-In particular, **`dataset_name`** will be used as the main title for the visualization, if provided. Else, the tool will attempt to find a `dataset_name` key inside the `.pt` file. If neither is found, it will default to "Uploaded_Data".
+In particular, **`dataset_name`** will be used as the main title for the visualization, if provided. Else, the tool will attempt to find a `dataset_name` key inside the `.pt` file. If neither is found, it will default to "Uploaded\_Data".
 
 **Structure of the `config.json` file:**
 
@@ -135,20 +142,18 @@ Follow these steps to get TS-Insight running locally on your machine.
 
 ### 1. Prerequisites
 
-- Python 3.11.9
-- `pip` package manager
+-   Python 3.11.9
+-   `pip` package manager
 
 ### 2. Installation
 
 First, clone this repository to your local machine:
-
 ```bash
-git clone https://github.com/list-luxembourg/ts-insight.git
+git clone https://github.com/parsavares/ts-insight.git
 cd ts-insight
 ```
 
 Next, it is highly recommended to create a virtual environment to manage dependencies:
-
 ```bash
 # For Unix/macOS
 python3 -m venv venv
@@ -160,7 +165,6 @@ python -m venv venv
 ```
 
 Finally, install the required Python packages:
-
 ```bash
 pip install -r requirements.txt
 ```
@@ -168,7 +172,6 @@ pip install -r requirements.txt
 ### 3. Running the App
 
 With your virtual environment active, run the Streamlit application from the project's root directory:
-
 ```bash
 streamlit run app.py
 ```
@@ -182,7 +185,7 @@ We welcome contributions! Please feel free to open an issue or submit a pull req
 # License
 
 This project is licensed under the GNU General Public License v3.0.  
-© 2025 Luxembourg Institute of Science and Technology. All Rights Reserved
+© 2025 Luxembourg Institute of Science and Technology  
 
 # Cite Our Work
 
@@ -213,10 +216,8 @@ If you use **TS-Insight** or build upon the **idea, design, or visual explanatio
 # Author
 
 **Parsa Vares**  
-Luxembourg Institute of Science and Technology:
-parsa.vares@list.lu
-
-University of Luxembourg:
-parsa.vares.001@student.uni.lu
+*Luxembourg Institute of Science and Technology:* `parsa.vares@list.lu`  
+*University of Luxembourg:* `parsa.vares.001@student.uni.lu`
 
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github&style=flat-square)](https://github.com/parsavares) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin&style=flat-square)](https://www.linkedin.com/in/parsavares/)
+
